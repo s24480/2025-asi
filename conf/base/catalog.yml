@@ -1,0 +1,3 @@
+taxi-ds:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/taxi_ds_1.csv
