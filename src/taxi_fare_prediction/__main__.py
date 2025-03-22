@@ -1,5 +1,5 @@
 """New Kedro Project file for ensuring the package is executable
-as `new-kedro-project` and `python -m new_kedro_project`
+as `new-kedro-project` and `python -m taxi_fare_prediction`
 """
 import sys
 from pathlib import Path
