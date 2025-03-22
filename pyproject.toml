@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 requires-python = ">=3.9"
-name = "new_kedro_project"
+name = "taxi_fare_prediction"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.scripts]
-"new-kedro-project" = "new_kedro_project.__main__:main"
+"taxi-fare-prediction" = "taxi_fare_prediction.__main__:main"
 
 [project.entry-points."kedro.hooks"]
 
@@ -44,15 +44,15 @@ dev = [
 ]
 
 [tool.setuptools.dynamic]
-version = {attr = "new_kedro_project.__version__"}
+version = {attr = "taxi_fare_prediction.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 namespaces = false
 
 [tool.kedro]
-package_name = "new_kedro_project"
-project_name = "New Kedro Project"
+package_name = "taxi_fare_prediction"
+project_name = "Taxi Fare Prediction"
 kedro_init_version = "0.19.12"
 tools = "['Linting', 'Testing', 'Custom Logging', 'Documentation', 'Data Structure', 'PySpark']"
 example_pipeline = "False"
@@ -61,7 +61,7 @@ source_dir = "src"
 [tool.pytest.ini_options]
 addopts = """
 --cov-report term-missing \
---cov src/new_kedro_project -ra"""
+--cov src/taxi_fare_prediction -ra"""
 
 [tool.coverage.report]
 fail_under = 0

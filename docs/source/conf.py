@@ -20,7 +20,7 @@
 import re
 
 from kedro.framework.cli.utils import find_stylesheets
-from new_kedro_project import __version__ as release
+from taxi_fare_prediction import __version__ as release
 
 # -- Project information -----------------------------------------------------
 
@@ -120,7 +120,7 @@ html_show_copyright = False
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "new_kedro_projectdoc"
+htmlhelp_basename = "taxi_fare_predictiondoc"
 
 # -- Options for LaTeX output ------------------------------------------------
 
