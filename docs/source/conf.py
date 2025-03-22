@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-# new_kedro_project documentation build
+# taxi_fare_prediction documentation build
 # configuration file, created by sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its
@@ -24,7 +24,7 @@ from new_kedro_project import __version__ as release
 
 # -- Project information -----------------------------------------------------
 
-project = "new_kedro_project"
+project = "taxi_fare_prediction"
 author = "Kedro"
 
 # The short X.Y version.
@@ -148,8 +148,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "new_kedro_project.tex",
-        "new_kedro_project Documentation",
+        "taxi_fare_prediction.tex",
+        "taxi_fare_prediction Documentation",
         "Kedro",
         "manual",
     )
@@ -162,8 +162,8 @@ latex_documents = [
 man_pages = [
     (
         master_doc,
-        "new_kedro_project",
-        "new_kedro_project Documentation",
+        "taxi_fare_prediction",
+        "taxi_fare_prediction Documentation",
         [author],
         1,
     )
@@ -177,11 +177,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "new_kedro_project",
-        "new_kedro_project Documentation",
+        "taxi_fare_prediction",
+        "taxi_fare_prediction Documentation",
         author,
-        "new_kedro_project",
-        "Project new_kedro_project codebase.",
+        "taxi_fare_prediction",
+        "Project taxi_fare_prediction codebase.",
         "Data-Science",
     )
 ]
