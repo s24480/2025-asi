@@ -4,3 +4,14 @@ taxi-ds:
 taxi-ds-cleaned:
   type: pandas.CSVDataset
   filepath: data/02_intermediate/taxi_ds_2.csv
+predictions:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/predictions.csv
+  save_args:
+    index: false
+
+model_metrics:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/model_metrics.csv
+  save_args:
+    index: false

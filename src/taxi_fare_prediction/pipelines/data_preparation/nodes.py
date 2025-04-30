@@ -27,3 +27,15 @@ def prepare_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean = clean_dataset(df)
     df_sampled = sample_dataset(df_clean, sample_fraction=0.05)
     return df_sampled
+
+def compute_feature_correlation(
+    df: pd.DataFrame,
+    target: str
+) -> pd.DataFrame:
+    """
+    Zwraca macierz korelacji pomiędzy cechami (bez kolumny target).
+    """
+    # wybieramy tylko kolumny numeryczne i usuwamy target
+    df_num = df.select_dtypes(include="number").drop(columns=[target], errors="ignore")
+    corr = df_num.corr()
+    return corr
