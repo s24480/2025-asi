@@ -15,9 +15,6 @@ def split_for_serving(
     test_size: float,
     random_state: int
 ) -> pd.DataFrame:
-    """
-    Dzieli df na train/test, ale zwraca tylko testowy DataFrame (X+y).
-    """
     X = df.drop(columns=[target])
     y = df[target]
     _, X_test, _, y_test = train_test_split(
@@ -29,9 +26,6 @@ def split_for_serving(
 
 
 def load_autogluon_predictor(model_dir: str) -> TabularPredictor:
-    """
-    Ładuje zapisany AutoGluon Predictor z folderu.
-    """
     return TabularPredictor.load(model_dir)
 
 
@@ -56,9 +50,6 @@ def evaluate_predictions(
     predictions: pd.DataFrame,
     target: str
 ) -> pd.DataFrame:
-    """
-    Oblicza RMSE, MAE i R2, wypisuje je i zwraca jako DataFrame.
-    """
     y_true = predictions[target]
     y_pred  = predictions[f"predicted_{target}"]
 
@@ -66,12 +57,10 @@ def evaluate_predictions(
     mae  = mean_absolute_error(y_true, y_pred)
     r2   = r2_score(y_true, y_pred)
 
-    # wydruk na konsolę
     print(f"🔍 RMSE na zestawie testowym: {rmse:.4f}")
     print(f"🔍 MAE  na zestawie testowym: {mae:.4f}")
     print(f"🔍 R²   na zestawie testowym: {r2:.4f}")
 
-    # DataFrame do zapisu
     return pd.DataFrame({
         "metric": ["rmse", "mae", "r2"],
         "value":  [rmse, mae, r2]
