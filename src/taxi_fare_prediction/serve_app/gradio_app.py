@@ -3,17 +3,42 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import pandas as pd
 from typing import Optional, Tuple
+from autogluon.tabular import TabularPredictor
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Ustal katalog projektu i modelu
 ROOT_DIR = Path(__file__).resolve().parents[3]
 MODEL_DIR = ROOT_DIR / "models" / "neuralnettorch"
-
-# Import funkcji
-from src.taxi_fare_prediction.pipelines.serve.nodes import load_neuralnettorch_predictor, make_predictions
+PORT = int(os.getenv("PORT", "7860"))
 
 # Cache loadera modelu
 _model_cache = {}
+
+
+def load_neuralnettorch_predictor(model_dir: str) -> TabularPredictor:
+    return TabularPredictor.load(model_dir)
+
+
+def make_predictions(
+        predictor,
+        df: pd.DataFrame,
+        target: str,
+        model_name: str = None  # ← domyślnie brak
+) -> pd.DataFrame:
+    df_out = df.copy()
+    X = df_out.drop(columns=[target], errors="ignore")
+    if model_name:
+        preds = predictor.predict(X, model=model_name)
+    else:
+        preds = predictor.predict(X)
+    df_out[f"predicted_{target}"] = preds
+    return df_out
+
+
 def get_model() -> 'TabularPredictor':  # type: ignore
     path = str(MODEL_DIR)
     if path not in _model_cache:
@@ -25,7 +50,7 @@ def compute_distance(origin: str, destination: str) -> Optional[float]:
     """
     Geokoduje adresy i zwraca odległość w kilometrach lub None.
     """
-    geolocator = Nominatim(user_agent="taxi_fare_app")
+    geolocator = Nominatim(user_agent="taxi_fare_app", timeout=10)
     loc1 = geolocator.geocode(origin)
     loc2 = geolocator.geocode(destination)
     if loc1 is None or loc2 is None:
@@ -34,10 +59,10 @@ def compute_distance(origin: str, destination: str) -> Optional[float]:
 
 
 def predict_fare(
-    passengers: int,
-    origin: str,
-    destination: str,
-    payment: str
+        passengers: int,
+        origin: str,
+        destination: str,
+        payment: str
 ) -> Tuple[str, Optional[str]]:
     # Oblicz dystans
     distance = compute_distance(origin, destination)
@@ -66,7 +91,7 @@ def predict_fare(
         preds = make_predictions(predictor, df, target="fare_amount")
         price = float(preds["predicted_fare_amount"].iloc[0])
         dist_str = f"Odległość: {distance:.2f} km"
-        dur_str = f"Szacowany czas: {duration/60:.1f} min"
+        dur_str = f"Szacowany czas: {duration / 60:.1f} min"
         price_str = f"Szacowana cena: {price:.2f}"
         return f"{dist_str}, {dur_str}", price_str
     except Exception as e:
@@ -98,4 +123,4 @@ if __name__ == "__main__":
     if not MODEL_DIR.exists():
         raise FileNotFoundError(f"Katalog modelu nie istnieje: {MODEL_DIR}")
     demo = build_interface()
-    demo.launch()
+    demo.launch(server_name="0.0.0.0", server_port=PORT)

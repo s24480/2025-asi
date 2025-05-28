@@ -5,15 +5,16 @@ from sklearn.model_selection import train_test_split
 from autogluon.tabular import TabularPredictor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
+
 def load_neuralnettorch_predictor(model_dir: str) -> TabularPredictor:
     return TabularPredictor.load(model_dir)
 
 
 def split_for_serving(
-    df: pd.DataFrame,
-    target: str,
-    test_size: float,
-    random_state: int
+        df: pd.DataFrame,
+        target: str,
+        test_size: float,
+        random_state: int
 ) -> pd.DataFrame:
     X = df.drop(columns=[target])
     y = df[target]
@@ -30,10 +31,10 @@ def load_autogluon_predictor(model_dir: str) -> TabularPredictor:
 
 
 def make_predictions(
-    predictor: TabularPredictor,
-    df: pd.DataFrame,
-    target: str,
-    model_name: str = None     # ← domyślnie brak
+        predictor: TabularPredictor,
+        df: pd.DataFrame,
+        target: str,
+        model_name: str = None  # ← domyślnie brak
 ) -> pd.DataFrame:
     df_out = df.copy()
     X = df_out.drop(columns=[target], errors="ignore")
@@ -45,17 +46,16 @@ def make_predictions(
     return df_out
 
 
-
 def evaluate_predictions(
-    predictions: pd.DataFrame,
-    target: str
+        predictions: pd.DataFrame,
+        target: str
 ) -> pd.DataFrame:
     y_true = predictions[target]
-    y_pred  = predictions[f"predicted_{target}"]
+    y_pred = predictions[f"predicted_{target}"]
 
     rmse = mean_squared_error(y_true, y_pred, squared=False)
-    mae  = mean_absolute_error(y_true, y_pred)
-    r2   = r2_score(y_true, y_pred)
+    mae = mean_absolute_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
 
     print(f"🔍 RMSE na zestawie testowym: {rmse:.4f}")
     print(f"🔍 MAE  na zestawie testowym: {mae:.4f}")
@@ -63,5 +63,5 @@ def evaluate_predictions(
 
     return pd.DataFrame({
         "metric": ["rmse", "mae", "r2"],
-        "value":  [rmse, mae, r2]
+        "value": [rmse, mae, r2]
     })
