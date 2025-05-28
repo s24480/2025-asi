@@ -57,4 +57,4 @@ jobs:
           resourceGroup: asi
           registryUsername: ${{ secrets.PREDYKCJAKOSZTUPRZEJAZDU_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.PREDYKCJAKOSZTUPRZEJAZDU_REGISTRY_PASSWORD }}
-          imageToDeploy: ghcr.io/predykcja-kosztu-przejazdu:${{ github.sha }}
+          imageToDeploy: ghcr.io/s24480/predykcja-kosztu-przejazdu:${{ github.sha }}
