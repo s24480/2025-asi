@@ -35,7 +35,6 @@ def compute_feature_correlation(
     """
     Zwraca macierz korelacji pomiędzy cechami (bez kolumny target).
     """
-    # wybieramy tylko kolumny numeryczne i usuwamy target
     df_num = df.select_dtypes(include="number").drop(columns=[target], errors="ignore")
     corr = df_num.corr()
     return corr

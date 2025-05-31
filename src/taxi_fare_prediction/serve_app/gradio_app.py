@@ -7,25 +7,15 @@ import os, sys
 from dotenv import load_dotenv
 from typing import Optional, Tuple
 
-# --------------------------------------------------
-# Setup
-# --------------------------------------------------
 load_dotenv()
-# wymusimy niebuforowane stdout
-sys.stdout.reconfigure(line_buffering=True)
 
-# --------------------------------------------------
-# Taryfa
-# --------------------------------------------------
 BASE_FARE    = 5.00
 RATE_PER_KM  = 2.50
 RATE_PER_MIN = 0.50
 
 geolocator = Nominatim(user_agent="taxi_fare_app", timeout=10)
 
-# --------------------------------------------------
-# Funkcje z PRINTami
-# --------------------------------------------------
+
 def compute_distance(origin: str, destination: str) -> Optional[float]:
     print(f"[PRINT] compute_distance: {origin} → {destination}", flush=True)
     try:
