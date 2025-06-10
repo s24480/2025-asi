@@ -12,13 +12,7 @@ def train_autogluon_model(
     test_size: float = 0.2,
     random_state: int = 42
 ) -> tuple:
-    """
-    1) Wyświetla macierz korelacji cech (bez kolumny target).
-    2) Dzieli df na train/test.
-    3) Trenuje AutoGluon tylko na train.
-    Zwraca (predictor, df_test).
-    """
-    # 1. Korelacja
+
     df_num = df.select_dtypes(include=["number"]).drop(columns=[label], errors="ignore")
     corr = df_num.corr()
     print("📊 Macierz korelacji cech (bez targetu):\n", corr, "\n")

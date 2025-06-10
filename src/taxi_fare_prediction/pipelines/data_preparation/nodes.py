@@ -27,7 +27,11 @@ def prepare_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean = clean_dataset(df)
     df_sampled = sample_dataset(df_clean, sample_fraction=0.05)
     return df_sampled
-
+def split_for_serving(df: pd.DataFrame, target: str) -> pd.DataFrame:
+    """
+    Przygotowuje zbiór cech do serwowania (bez kolumny target).
+    """
+    return df.drop(columns=[target], errors="ignore")
 def compute_feature_correlation(
     df: pd.DataFrame,
     target: str

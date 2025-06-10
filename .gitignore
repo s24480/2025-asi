@@ -158,3 +158,6 @@ venv.bak/
 
 # mlflow local runs
 mlruns/*
+models/neuralnetorch/models/
+src/taxi_fare_prediction/pipelines/data_preparation/models/
+models
