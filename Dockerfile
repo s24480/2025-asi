@@ -5,10 +5,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 COPY . .
-RUN pip install --no-cache-dir -r requirements-gradio.txt
-
-WORKDIR /app/src/taxi_fare_prediction/serve_app
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE ${PORT}
 
-CMD ["python", "gradio_app.py"]
+CMD ["python", "app.py"]

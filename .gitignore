@@ -161,3 +161,6 @@ mlruns/*
 models/neuralnetorch/models/
 src/taxi_fare_prediction/pipelines/data_preparation/models/
 models
+
+taxi_fare_predictor
+taxi_fare_predictor.zip

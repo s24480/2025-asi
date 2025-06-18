@@ -1,4 +1,0 @@
-autogluon:
-  target: "fare_amount"
-  output_dir: "models/neuralnettorch"
-  time_limit: 600
